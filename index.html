@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
+
+    <title>LOL</title>
+
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -24,11 +27,32 @@
             display: block;
         }
     </style>
-    <title>LOL</title>
 </head>
+
 <body>
-    <div class="content">
-        <video src="RickRoll.mp4" class="video" autoplay loop playsinline></video>
-    </div>
+
+    <video
+        id="rickroll"
+        src="./RickRoll.mp4"
+        autoplay
+        muted
+        loop
+        playsinline>
+    </video>
+
+    <script>
+        const video = document.getElementById("rickroll");
+
+        document.addEventListener("click", () => {
+            video.muted = false;
+            video.play();
+        }, { once: true });
+
+        document.addEventListener("touchstart", () => {
+            video.muted = false;
+            video.play();
+        }, { once: true });
+    </script>
+
 </body>
 </html>
