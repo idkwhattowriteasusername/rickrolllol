@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>LOL</title>
 
     <style>
@@ -21,38 +20,40 @@
         }
 
         video {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            display: block;
         }
     </style>
 </head>
 
 <body>
 
-    <video
-        id="rickroll"
-        src="./RickRoll.mp4"
-        autoplay
-        muted
-        loop
-        playsinline>
-    </video>
+<video id="rickroll" autoplay muted loop playsinline>
+    <source src="./RickRoll.mp4" type="video/mp4">
+</video>
 
-    <script>
-        const video = document.getElementById("rickroll");
+<script>
+    const video = document.getElementById("rickroll");
 
-        document.addEventListener("click", () => {
-            video.muted = false;
-            video.play();
-        }, { once: true });
+    // Try to start immediately
+    video.play().catch(() => {
+        console.log("Autoplay blocked");
+    });
 
-        document.addEventListener("touchstart", () => {
-            video.muted = false;
-            video.play();
-        }, { once: true });
-    </script>
+    // Enable sound when they interact
+    document.addEventListener("click", function () {
+        video.muted = false;
+        video.volume = 1;
+        video.play();
+    }, { once: true });
+
+    document.addEventListener("touchstart", function () {
+        video.muted = false;
+        video.volume = 1;
+        video.play();
+    }, { once: true });
+</script>
 
 </body>
 </html>
