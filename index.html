@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>LOL</title>
 
     <style>
@@ -19,41 +20,46 @@
             background: black;
         }
 
-        video {
-            width: 100%;
-            height: 100%;
+        #rickroll {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
             object-fit: cover;
+            display: block;
         }
     </style>
 </head>
 
 <body>
 
-<video id="rickroll" autoplay loop playsinline>
-    <source src="./RickRoll.mp4" type="video/mp4">
-</video>
+    <video id="rickroll"
+           autoplay
+           loop
+           playsinline>
+        <source src="./RickRoll.mp4" type="video/mp4">
+    </video>
 
-<!-- <script>
-    const video = document.getElementById("rickroll");
+    <script>
+        const video = document.getElementById("rickroll");
 
-    // Try to start immediately
-    video.play().catch(() => {
-        console.log("Autoplay blocked");
-    });
-
-    // Enable sound when they interact
-    document.addEventListener("click", function () {
+        // Try to start WITH SOUND immediately
         video.muted = false;
         video.volume = 1;
-        video.play();
-    }, { once: true });
 
-    document.addEventListener("touchstart", function () {
-        video.muted = false;
-        video.volume = 1;
-        video.play();
-    }, { once: true });
-</script> -->
+        video.play().catch(() => {
+            // Browser blocked autoplay with sound.
+            // First interaction immediately enables it.
+            const startWithSound = () => {
+                video.muted = false;
+                video.volume = 1;
+                video.play();
+            };
+
+            document.addEventListener("click", startWithSound, { once: true });
+            document.addEventListener("touchstart", startWithSound, { once: true });
+        });
+    </script>
 
 </body>
 </html>
