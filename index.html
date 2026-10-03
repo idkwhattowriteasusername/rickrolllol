@@ -1,5 +1,6 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ka">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,49 +18,100 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: black;
+            background: #111;
         }
 
+        /* პირველი გვერდი */
+        #startPage {
+            width: 100vw;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: #111;
+        }
+
+        #enterButton {
+            padding: 20px 40px;
+
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+
+            color: white;
+            background: #222;
+
+            border: 2px solid white;
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        #enterButton:hover {
+            background: white;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        /* ვიდეო თავიდან დამალულია */
         #rickroll {
             position: fixed;
             inset: 0;
+
             width: 100vw;
             height: 100vh;
+
             object-fit: cover;
-            display: block;
+
+            display: none;
         }
     </style>
 </head>
 
 <body>
 
-    <video id="rickroll"
-           autoplay
-           loop
-           playsinline>
+    <!-- პირველი გვერდი -->
+    <div id="startPage">
+        <button id="enterButton">
+            დააჭირე საიტზე შესასვლელად
+        </button>
+    </div>
+
+    <!-- Rickroll -->
+    <video id="rickroll" loop playsinline>
         <source src="./RickRoll.mp4" type="video/mp4">
     </video>
 
     <script>
+        const button = document.getElementById("enterButton");
+        const startPage = document.getElementById("startPage");
         const video = document.getElementById("rickroll");
 
-        // Try to start WITH SOUND immediately
-        video.muted = false;
-        video.volume = 1;
+        button.addEventListener("click", async () => {
 
-        video.play().catch(() => {
-            // Browser blocked autoplay with sound.
-            // First interaction immediately enables it.
-            const startWithSound = () => {
-                video.muted = false;
-                video.volume = 1;
-                video.play();
-            };
+            // ვმალავთ პირველ გვერდს
+            startPage.style.display = "none";
 
-            document.addEventListener("click", startWithSound, { once: true });
-            document.addEventListener("touchstart", startWithSound, { once: true });
+            // ვაჩენთ ვიდეოს
+            video.style.display = "block";
+
+            // ხმა აუცილებლად ჩართული
+            video.muted = false;
+            video.volume = 1;
+
+            // ვიწყებთ ვიდეოს
+            try {
+                await video.play();
+            } catch (error) {
+                console.log("Video could not start:", error);
+            }
         });
     </script>
 
 </body>
 </html>
+```
